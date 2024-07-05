@@ -58,24 +58,32 @@
 	 			<thead>
 	 				<tr>
 	 					<th>Pig No</th>
+						<th>Buyer</th>
+						<th>Price</th>
+						<th>Money</th>
 	 					<th>Date sold</th>
-	 					<!-- <th>Breed</th>
-                        <th>Classification</th>
-                        <th>Feed</th>
-                        <th>Vitamins</th> -->
 	 					<th>Reason</th>
+						<th>Action</th>
 	 				</tr>
 	 			</thead>
 	 			<tbody>
 	 				<?php
 
-	 				$get = $db->query("SELECT p.pigno,s.date_sold,s.reason FROM sold s LEFT JOIN pigs p ON s.pig_id = p.id");
+	 				$get = $db->query("SELECT p.pigno,s.date_sold,s.reason,s.buyer,s.price,p.id,s.money FROM sold s LEFT JOIN pigs p ON s.pig_id = p.id");
 	 				$res = $get->fetchAll(PDO::FETCH_OBJ);
 	 				foreach($res as $n){ ?>
                          <tr>
                          	<td> <?php echo $n->pigno; ?> </td>
+							 <td>  <?php echo $n->buyer; ?> </td>
+							 <td>  <?php echo $n->price; ?> </td>
+							 <td>  <?php echo $n->money; ?> </td>
                          	<td>  <?php echo $n->date_sold; ?> </td>
                          	<td> <?php echo $n->reason; ?> </td>
+							<td>
+								<a href="receipt.php?id=<?= $n->id ?>" class="btn btn-primary">
+								<i class="fa fa-print"> Receipt</i>
+								</a>
+							</td>
                          </tr> 
 	 				<?php }
 
@@ -90,11 +98,9 @@
       if(isset($_POST['submit']))
       {
       	$id = $_POST['id'];
-     
-      	// $n_breed = $_POST['breed'];
-        // $n_breed = $_POST['classification'];
-        // $n_breed = $_POST['feed'];
-        // $n_breed = $_POST['vitamins'];
+		$buyer = $_POST['buyer'];
+		$price = $_POST['price'];
+		$money = $_POST['money'];
       	$n_remark = $_POST['reason'];
       	$now = date('Y-m-d');
 		$status = 3;
@@ -102,7 +108,7 @@
 
       	$n_id = $_GET['id'];
 
-      	$insert_query = $db->query("INSERT INTO sold(pig_id, date_sold, reason)VALUES('$id','$now', '$n_remark') ");
+      	$insert_query = $db->query("INSERT INTO sold(pig_id, date_sold, reason, buyer, price, money)VALUES('$id','$now', '$n_remark', '$buyer', '$price', '$money') ");
 
 		$update_pig = $db->query("UPDATE pigs SET status = '$status' WHERE id = '$id'");
 
@@ -112,7 +118,7 @@
              <strong>Pig successfully sold <i class="fa fa-check"></i></strong>
         </div>
        <?php
-         header('refresh: .5');
+         header("refresh: 1; url=receipt.php?id=$pid");
       	}else{ ?>
           <div class="alert alert-danger alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -134,26 +140,20 @@
 	 				<input type="text" name="pigno" readonly="on" class="form-control" value="<?php echo $pigno; ?>">
 	 			</div>
 
-	 			<!-- <div class="form-group">
-	 				<label class="control-label">Breed</label>
-	 				<input type="text" name="breed" readonly="on" class="form-control" value="<?php echo $bname; ?>">
-	 			</div>
-                
 	 			<div class="form-group">
-	 				<label class="control-label">Classification</label>
-	 				<input type="text" name="classsificaation" readonly="on" class="form-control" value="<?php echo $cname; ?>">
+	 				<label class="control-label">Buyer Name</label>
+	 				<input type="text" name="buyer" class="form-control" required>
 	 			</div>
-                
-	 			<div class="form-group">
-	 				<label class="control-label">Feed</label>
-	 				<input type="text" name="feed" readonly="on" class="form-control" value="<?php echo $fname; ?>">
+
+				 <div class="form-group">
+	 				<label class="control-label">Price</label>
+	 				<input type="text" name="price" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" required>
 	 			</div>
-                
-	 			<div class="form-group">
-	 				<label class="control-label">Vitamins</label>
-	 				<input type="text" name="vitamins" readonly="on" class="form-control" value="<?php echo $vname; ?>">
-	 			</div> -->
-				
+
+				 <div class="form-group">
+	 				<label class="control-label">Money</label>
+	 				<input type="text" name="money" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" required>
+	 			</div>
 
 	 			<div class="form-group">
 	 				<label class="control-label">Reason</label>

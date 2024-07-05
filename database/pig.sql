@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2024 at 08:00 AM
+-- Generation Time: Jul 05, 2024 at 08:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,6 +120,9 @@ CREATE TABLE `quarantine` (
 CREATE TABLE `sold` (
   `id` int(11) NOT NULL,
   `pig_id` int(11) NOT NULL,
+  `buyer` text DEFAULT NULL,
+  `price` float NOT NULL,
+  `money` float NOT NULL,
   `reason` text NOT NULL,
   `date_sold` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -3,13 +3,13 @@ $url = implode(explode('/jsv', strtolower($_SERVER['REQUEST_URI'])));
 $active = "w3-blue";
 ?>
 
-<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+<div class="w3-bar w3-top w3-black w3-large dont-print" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> Menu</button>
   <span class="w3-bar-item w3-right" style="font-family: sans-serif;"><?php echo NAME_X; ?></span>
 </div>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left dont-print" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
     <div class="w3-col s4">
       <img src="theme/default_avatar.jpg" class="w3-circle w3-margin-right" style="width:46px">
@@ -31,7 +31,8 @@ $active = "w3-blue";
     <a href="manage-feed.php" class="w3-bar-item w3-button w3-padding <?= str_contains($url, '/manage-feed.php') ? $active : '' ?>"><i class="fa fa-users fa-fw"></i> Manage Feeds</a>
     <a href="manage-vitamins.php" class="w3-bar-item w3-button w3-padding <?= str_contains($url, '/manage-vitamins.php') ? $active : '' ?>"><i class="fa fa-users fa-fw"></i> Manage Vitamins</a>
     <a href="manage-quarantine.php" class="w3-bar-item w3-button w3-padding <?= $url == '/manage-quarantine.php' ? $active : '' ?>"><i class="fa fa-diamond fa-fw"></i> Quarantine</a>
-    <a href="manage-sold.php" class="w3-bar-item w3-button w3-padding <?= $url == '/manage-sold.php' ? $active : '' ?>"><i class="fa fa-diamond fa-fw"></i> Sold</a>
+    <a href="manage-sold.php" class="w3-bar-item w3-button w3-padding <?= $url == '/manage-sold.php' || str_contains($url ,'/receipt.php') ? $active : '' ?>"><i class="fa fa-diamond fa-fw"></i> Sold</a>
+    <a href="manage-sales.php" class="w3-bar-item w3-button w3-padding <?= $url == '/manage-sales.php' ? $active : '' ?>"><i class="fa fa-bar-chart fa-fw"></i> Sales</a>
     <a href="logout.php" class="w3-bar-item w3-button w3-padding"><i class="fa fa-power-off fa-fw"></i> Log out</a><br><br>
   </div>
 </nav>

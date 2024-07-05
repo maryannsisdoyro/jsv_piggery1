@@ -16,6 +16,7 @@
 
 <!-- CDN BASED  -->
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
@@ -26,6 +27,11 @@
 body {
     font-family: 'Baumans';
     background-color: #d4d8dd;
+}
+@media print{
+	.dont-print{
+		display: none !important;
+	}
 }
 </style>
 

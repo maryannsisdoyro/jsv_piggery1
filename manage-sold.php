@@ -34,6 +34,7 @@
 						 <th>Feed</th>
 						 <th>Vitamins</th>
 	 					<th>Reason</th>
+						<th>Action</th>
 	 				</tr>
 	 			</thead>
 	 			<tbody>
@@ -45,6 +46,7 @@
 						s.reason,
 						b.name AS breed,
 						p.pigno,
+						p.id AS pig_id,
 						c.name AS classification,
 						f.name AS feed,
 						v.name AS vitamins
@@ -76,6 +78,11 @@
 							 <td><?php echo $n->feed; ?> </td>
 							 <td><?php echo $n->vitamins ; ?> </td>
                          	<td> <?php echo $n->reason; ?> </td>
+							 <td>
+								<a href="receipt.php?id=<?= $n->pig_id ?>" class="btn btn-primary">
+								<i class="fa fa-print"> Receipt</i>
+								</a>
+							</td>
                          </tr> 
 	 				<?php }
 
