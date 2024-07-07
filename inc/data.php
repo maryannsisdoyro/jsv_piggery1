@@ -41,7 +41,7 @@
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-blue w3-padding-16">
-        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-lock w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $quarantine;  ?></h3>
         </div>
@@ -51,7 +51,7 @@
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-cyan w3-padding-16">
-        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-diamond w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $sold;  ?></h3>
         </div>
@@ -61,7 +61,7 @@
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-teal w3-padding-16">
-        <div class="w3-left"><i class="fa fa-list w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-reorder w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $bCount;  ?></h3>
         </div>
@@ -72,7 +72,7 @@
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-black w3-padding-16">
-        <div class="w3-left"><i class="fa fa-list w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-medkit w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $vCount;  ?></h3>
         </div>
@@ -83,7 +83,7 @@
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-yellow w3-padding-16">
-        <div class="w3-left"><i class="fa fa-list w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-stack-overflow w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $fCount;  ?></h3>
         </div>
@@ -93,7 +93,7 @@
       </div>
     </div><div class="w3-quarter">
       <div class="w3-container w3-green w3-padding-16">
-        <div class="w3-left"><i class="fa fa-list w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-sort w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3><?php echo $cCount;  ?></h3>
         </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2024 at 08:00 PM
+-- Generation Time: Jul 07, 2024 at 02:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
+  `name` text NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -37,8 +38,8 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin@gmail.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8 ');
+INSERT INTO `admin` (`id`, `name`, `username`, `password`) VALUES
+(1, 'Chad Rhino Quijano', 'admin@gmail.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8 ');
 
 -- --------------------------------------------------------
 
@@ -51,6 +52,16 @@ CREATE TABLE `breed` (
   `name` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `breed`
+--
+
+INSERT INTO `breed` (`id`, `name`) VALUES
+(1, 'Berkshire'),
+(2, 'British Saddleback'),
+(3, 'Duroc'),
+(4, 'Large White');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +72,15 @@ CREATE TABLE `classification` (
   `id` int(50) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `classification`
+--
+
+INSERT INTO `classification` (`id`, `name`) VALUES
+(1, '3 WEEKS OLD'),
+(2, 'Growing'),
+(3, 'Finishing');
 
 -- --------------------------------------------------------
 
@@ -74,6 +94,17 @@ CREATE TABLE `feed` (
   `brand` text NOT NULL,
   `stock` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feed`
+--
+
+INSERT INTO `feed` (`id`, `name`, `brand`, `stock`) VALUES
+(1, 'uno', 'chad_1', 20),
+(2, 'integra 1000', '', 0),
+(3, 'testingan', '', 0),
+(6, 'Numeration', 'hhdhdhdhdhdhdhdh', 23),
+(7, 'dsfsdf', 'sdfsdf', 23);
 
 -- --------------------------------------------------------
 
@@ -141,6 +172,14 @@ CREATE TABLE `vitamins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `vitamins`
+--
+
+INSERT INTO `vitamins` (`id`, `name`, `brand`, `stock`) VALUES
+(1, 'swine multivitamins', '', 1),
+(2, 'Testing', '', 1);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -206,19 +245,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `breed`
 --
 ALTER TABLE `breed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `classification`
 --
 ALTER TABLE `classification`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `feed`
 --
 ALTER TABLE `feed`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pigs`
@@ -242,7 +281,7 @@ ALTER TABLE `sold`
 -- AUTO_INCREMENT for table `vitamins`
 --
 ALTER TABLE `vitamins`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

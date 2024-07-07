@@ -24,7 +24,7 @@
 			<div class="col-12 w3-margin-bottom dont-print">
 				<form action="" method="post">
 					<label>Select Month</label>
-					<input type="month" class="form-control" name="month">
+					<input type="month" class="form-control" name="month" min="<?= date('Y-m') ?>">
 					<div style="text-align: right;">
 						<button type="submit" class="btn btn-primary w3-margin-top">Show</button>
 					</div>

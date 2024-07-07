@@ -38,9 +38,11 @@
                 if($count > 0){
                    foreach($rows as $row){
                      $user_id = $row->id;
+                     $user_name = $row->name;
                      $user = $row->username;
 
                      $_SESSION['id'] = $user_id;
+                     $_SESSION['name'] = $user_name;
                      $_SESSION['user'] = $user;
 
                      header('location: dashboard.php');
