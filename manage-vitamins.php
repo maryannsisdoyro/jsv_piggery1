@@ -12,11 +12,29 @@ if (isset($_POST['submit'])) {
 		$query = $db->query("INSERT INTO vitamins(name,stock,brand)VALUES('$name', '$stock', '$brand')");
 
 		if ($query) { ?>
-			<script>
+			<!-- <script>
 				alert('Vitamins Added. Click OK to close dialogue.')
-			</script>
+			</script> -->
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Vitamins deleted successfully"
+			});
+		</script>
 <?php
-			header('refresh: 1.5');
+			// header('refresh: 1.5');
 		}
 	}
 }
@@ -31,11 +49,31 @@ if (isset($_POST['update'])) {
 		$query = $db->query("UPDATE vitamins SET name = '$name', stock = '$stock', brand = '$brand' WHERE id = '$id'");
 
 		if ($query) { ?>
-			<script>
+			<!-- <script>
 				alert('Vitamins updated successfully. Click OK to close dialogue.')
-			</script>
+			</script> -->
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Vitamins updated successfully"
+			}).then(() => {
+				window.location.href = "manage-vitamins.php"
+			})
+		</script>
 <?php
-			header('refresh: 1.5;url=manage-vitamins.php');
+			// header('refresh: 1.5;url=manage-vitamins.php');
 		}
 	}
 }
@@ -47,11 +85,31 @@ if (isset($_GET['delete'])) {
 
 	if ($query) { 
 		?>
-			<script>
+			<!-- <script>
 				alert('Vitamins deleted successfully. Click OK to close dialogue.')
-			</script>
+			</script> -->
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Vitamins deleted successfully"
+			}).then(() => {
+				window.location.href = "manage-vitamins.php"
+			})
+		</script>
 		<?php
-		header('refresh: 1.5; url=manage-vitamins.php');
+		// header('refresh: 1.5; url=manage-vitamins.php');
 	}
 
 }

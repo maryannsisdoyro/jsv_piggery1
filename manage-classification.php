@@ -9,11 +9,29 @@ if (isset($_POST['submit'])) {
 	$query = $db->query("INSERT INTO classification (name)VALUES('$name')");
 
 	if ($query) { ?>
-		<script>
+		<!-- <script>
 			alert('Classification Added. Click OK to close dialogue.')
+		</script> -->
+		<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Classification added successfully"
+			});
 		</script>
 <?php
-		header('refresh: 1.5');
+		// header('refresh: 1.5');
 	}
 }
 if (isset($_POST['update'])) {
@@ -23,11 +41,32 @@ if (isset($_POST['update'])) {
 	$query = $db->query("UPDATE classification SET name = '$name' WHERE id = '$id'");
 
 	if ($query) { ?>
-		<script>
+		<!-- <script>
 			alert('Classification updated successfully. Click OK to close dialogue.')
+		</script> -->
+
+		<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Classification updated successfully"
+			}).then(() => {
+				window.location.href = "manage-classification.php"
+			});
 		</script>
 <?php
-		header('refresh: 1.5;url=manage-classification.php');
+		// header('refresh: 1.5;url=manage-classification.php');
 	}
 }
 if (isset($_GET['delete'])) {
@@ -37,11 +76,32 @@ if (isset($_GET['delete'])) {
 
 	if ($query) {
 		?>
-			<script>
+			<!-- <script>
 				alert('Classification deleted successfully. Click OK to close dialogue.')
-			</script>
+			</script> -->
+
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Classification deleted successfully"
+			}).then(() => {
+				window.location.href = "manage-classification.php"
+			});
+		</script>
 		<?php
-		header('refresh: 1.5;url=manage-classification.php');
+		// header('refresh: 1.5;url=manage-classification.php');
 	}
 }
 ?>

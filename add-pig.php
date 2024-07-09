@@ -65,16 +65,54 @@
 					$insert = $db->query("INSERT INTO pigs(pigno,weight,arrived,breed_id, classification_id, feed_id, vitamins_id,remark,health_status,img,gender,description) VALUES('$n_pigno','$n_weight','$n_arrived','$n_breed','$n_classification', '$n_feed', '$n_vitamins', '$n_remark','$n_status','$path1','$n_gender','$n_desc') ");
 
 					if ($insert) { ?>
-						<div class="alert alert-success alert-dismissable">
+						<!-- <div class="alert alert-success alert-dismissable">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 							<strong>Pig successfully created <i class="fa fa-check"></i></strong>
-						</div>
+						</div> -->
+
+						<script>
+							const Toast = Swal.mixin({
+								toast: true,
+								position: "top-end",
+								showConfirmButton: false,
+								timer: 3000,
+								timerProgressBar: true,
+								didOpen: (toast) => {
+									toast.onmouseenter = Swal.stopTimer;
+									toast.onmouseleave = Swal.resumeTimer;
+								}
+							});
+
+							Toast.fire({
+								icon: "success",
+								title: "Pig successfully created"
+							});
+						</script>
 					<?php
 					} else { ?>
-						<div class="alert alert-danger alert-dismissable">
+						<!-- <div class="alert alert-danger alert-dismissable">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 							<strong>Error creatiing pig data. Please try again <i class="fa fa-times"></i></strong>
-						</div>
+						</div> -->
+
+						<script>
+							const Toast = Swal.mixin({
+								toast: true,
+								position: "top-end",
+								showConfirmButton: false,
+								timer: 3000,
+								timerProgressBar: true,
+								didOpen: (toast) => {
+									toast.onmouseenter = Swal.stopTimer;
+									toast.onmouseleave = Swal.resumeTimer;
+								}
+							});
+
+							Toast.fire({
+								icon: "error",
+								title: "Error creatiing pig data. Please try again"
+							});
+						</script>
 				<?php
 					}
 				}
@@ -99,9 +137,9 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="form-group date" data-provide="datepicker">
+							<div class="form-group date">
 								<label class="control-label">Arrival date</label>
-								<input type="text" name="arrived" class="form-control" required>
+								<input type="text" name="arrived" class="form-control datepicker" required>
 							</div>
 						</div>
 					</div>
@@ -226,4 +264,11 @@
 	</div>
 
 </div>
+<script>
+	$(document).ready(function(){
+		$('.datepicker').datepicker({
+    startDate: '3d'
+});
+	})
+</script>
 <?php include 'theme/foot.php'; ?>

@@ -79,7 +79,7 @@
 
         <div style="text-align: right; width: 100%;">
             <h4>Total: <?= number_format($res->price) ?></h4>
-            <h4>Money: <?= number_format($res->money) ?></h4>
+            <h4>Cash: <?= number_format($res->money) ?></h4>
             <h3>CHANGE: <?= number_format($res->money - $res->price) ?></h3>
         </div>
     </div>

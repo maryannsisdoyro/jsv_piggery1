@@ -1,5 +1,6 @@
 <?php 
 include 'setting/system.php';
+include 'theme/head.php'; 
 
 if(isset($_POST['remove'])){
 	
@@ -18,7 +19,29 @@ if(isset($_POST['remove'])){
 			}
 			 
 		}
-		header("location: manage-quarantine.php");
+		?>
+		<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Pig removed from quarantine successfully"
+			}).then(() => {
+				window.location.href = "manage-quarantine.php"
+			})
+		</script>
+		<?php 
+		// header("location: manage-quarantine.php");
 	}else{
 		header("location: manage-quarantine.php");
 	}

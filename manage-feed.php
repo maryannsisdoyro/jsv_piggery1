@@ -12,11 +12,29 @@ if (isset($_POST['submit'])) {
 		$query = $db->query("INSERT INTO feed(name,stock,brand)VALUES('$name', '$stock','$brand')");
 
 		if ($query) { ?>
-			<script>
+			<!-- <script>
 				alert('Feed Added. Click OK to close dialogue.')
-			</script>
+			</script> -->
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Feed added successfully"
+			});
+		</script>
 		<?php
-			header('refresh: 1.5');
+			// header('refresh: 1.5');
 		}
 	}
 }
@@ -32,9 +50,29 @@ if (isset($_POST['update'])) {
 
 		if ($query) {
 		?>
-			<script>
+			<!-- <script>
 				alert('Feed updated successfully. Click OK to close dialogue.')
-			</script>
+			</script> -->
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Feed updated successfully"
+			}).then(() => {
+				window.location.href = "manage-feed.php"
+			});
+		</script>
 		<?php
 			header('refresh: 1.5; url=manage-feed.php');
 		}
@@ -48,11 +86,31 @@ if (isset($_GET['delete'])) {
 
 	if ($query) {
 		?>
-			<script>
+			<!-- <script>
 				alert('Feed deleted successfully. Click OK to close dialogue.')
-			</script>
+			</script> -->
+			<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Feed deleted successfully"
+			}).then(() => {
+				window.location.href = "manage-feed.php"
+			});
+		</script>
 		<?php
-		header('refresh: 1.5: url=manage-vitamins.php');
+		// header('refresh: 1.5: url=manage-vitamins.php');
 	}
 }
 ?>

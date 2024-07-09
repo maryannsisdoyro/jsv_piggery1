@@ -8,12 +8,29 @@ if (isset($_POST['submit'])) {
 
 	$query = $db->query("INSERT INTO breed(name)VALUES('$name')");
 
-	if ($query) { ?>
-		<script>
-			alert('Breed Added. Click OK to close dialogue.')
-		</script>
+	if ($query) { 
+
+?>
+	<script>
+		const Toast = Swal.mixin({
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.onmouseenter = Swal.stopTimer;
+				toast.onmouseleave = Swal.resumeTimer;
+			}
+		});
+
+		Toast.fire({
+			icon: "success",
+			title: "Breed added successfully"
+		});
+	</script>
 <?php
-		header('refresh: 1.5');
+		// header('refresh: 1.5');
 	}
 }
 if (isset($_POST['update'])) {
@@ -24,10 +41,27 @@ if (isset($_POST['update'])) {
 
 	if ($query) { ?>
 		<script>
-			alert('Breed updated successfully. Click OK to close dialogue.')
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Breed updated successfully"
+			}).then(() => {
+				window.location.href = "manage-breed.php"
+			});
 		</script>
-<?php
-		header('refresh: 1.5;url=manage-breed.php');
+	<?php
+		// header('refresh: 1.5;url=manage-breed.php');
 	}
 }
 if (isset($_GET['delete'])) {
@@ -38,10 +72,27 @@ if (isset($_GET['delete'])) {
 	if ($query) {
 		?>
 			<script>
-				alert('Breed deleted successfully. Click OK to close dialogue.')
-			</script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Breed deleted successfully"
+			}).then(() => {
+				window.location.href = "manage-breed.php"
+			});
+		</script>
 		<?php
-		header('refresh: 1.5;url=manage-breed.php');
+		// header('refresh: 1.5;url=manage-breed.php');
 	}
 }
 ?>

@@ -1,5 +1,6 @@
 <?php
 include 'setting/system.php';
+include 'theme/head.php'; 
 
 if (isset($_POST['remove'])) {
 	if (!empty($_POST['selector'])) {
@@ -15,7 +16,29 @@ if (isset($_POST['remove'])) {
 				$query = $db->query("DELETE FROM sold where id ='$id[$i]'");
 			}
 		}
-		header("location: manage-sold.php");
+		?>
+		<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+	
+			Toast.fire({
+				icon: "success",
+				title: "Pig removed from sales successfully"
+			}).then(() => {
+				window.location.href = "manage-sold.php"
+			})
+		</script>
+		<?php 
+		// header("location: manage-sold.php");
 	}else{
 		header("location: manage-sold.php");
 	}
