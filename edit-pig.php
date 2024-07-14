@@ -77,10 +77,25 @@
       	$update_query = $db->query("UPDATE pigs SET pigno = '$n_pigno',weight = '$n_weight',arrived = '$n_arrived', breed_id = '$n_breed',classification_id = '$n_classification',   feed_id = '$n_feed', remark = '$n_remark',health_status = '$n_status' WHERE id = '$n_id' ");
 
       	if($update_query){?>
-      	<div class="alert alert-success alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-             <strong>Pig details successfully update <i class="fa fa-check"></i></strong>
-        </div>
+      
+		<script>
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 1500,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.onmouseenter = Swal.stopTimer;
+					toast.onmouseleave = Swal.resumeTimer;
+				}
+			});
+
+			Toast.fire({
+				icon: "success",
+				title: "Pig updated successfully"
+			});
+		</script>
        <?php
       	}else{ ?>
           <div class="alert alert-danger alert-dismissable">
