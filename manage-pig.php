@@ -31,6 +31,7 @@
               <th>Feed</th>
               <th>Vitamins</th>
               <th>Weight</th>
+              <th>Month</th>
               <th>Gender</th>
               <th>Health Status</th>
               <th>Arrived</th>
@@ -68,6 +69,7 @@
                   <td><?php echo $feed->name ?></td>
                   <td><?php echo $vitamins->name ?></td>
                   <td><?php echo $data->weight ?></td>
+                  <td><?= $data->month ?></td>
                   <td><?php echo $data->gender ?></td>
                   <td><?php echo $data->health_status ?></td>
                   <td><?php echo $data->arrived ?></td>
