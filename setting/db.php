@@ -12,6 +12,7 @@ try {
     $db = new PDO($dsn, DB_USER, DB_PASS);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die('<h4 style="color:red">Incorrect Connection Details</h4>');
+    error_log("Database connection error: " . $e->getMessage()); // Log the error
+    die('<h4 style="color:red">Database Connection Failed. Please try again later.</h4>');
 }
 ?>
