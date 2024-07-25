@@ -1,9 +1,9 @@
 <?php
 // Define constants for database connection details
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'u510162695_inventory');
-define('DB_PASS', '1Inventory_system');
-define('DB_NAME', 'u510162695_inventory');
+define('DB_USER', 'u510162695_pig');
+define('DB_PASS', '1Pigdatabase');
+define('DB_NAME', 'u510162695_pig');
 define('DB_PORT', '3306'); // Note: Changed to DB_PORT to align with typical naming conventions
 
 // Attempt to connect to the database
