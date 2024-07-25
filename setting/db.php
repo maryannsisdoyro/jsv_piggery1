@@ -1,6 +1,6 @@
 <?php
 // Define constants for database connection details
-define('DB_HOST', '127.0.0.1');
+define('DB_HOST', 'localhost'); // Changed to localhost
 define('DB_USER', 'u510162695_pig');
 define('DB_PASS', '1Pigdatabase');
 define('DB_NAME', 'u510162695_pig');
@@ -14,4 +14,4 @@ try {
 } catch (PDOException $e) {
     die('<h4 style="color:red">Incorrect Connection Details</h4>');
 }
-?> 
+?>
