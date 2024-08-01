@@ -11,7 +11,7 @@
 		<div class="col-md-4">
 			<form method="post" autocomplete="off">
 				<div class="form-group">
-				   <label class="control-label">Admin user</label>
+				   <label class="control-label">Admin Email</label>
 				   <input type="email" name="username" class="form-control input-sm" required>
 			    </div>
 

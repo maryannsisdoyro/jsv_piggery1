@@ -7,11 +7,11 @@
 		   <h3 class="modal-title">Remove From Quarantine List ?</h3>
 	    </div>
 		
-		<div class="modal-content">
-	     <div class="modal-header">
+		<!-- <div class="modal-content"> -->
+	     <!-- <div class="modal-header">
 		   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 		   <h3 class="modal-title">Remove From Sold List ?</h3>
-	    </div>
+	    </div> -->
 
 	   <div class="modal-body">
 		  <div class="alert alert-danger">

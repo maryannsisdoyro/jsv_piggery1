@@ -22,7 +22,7 @@ if (isset($_POST['remove'])) {
 				toast: true,
 				position: "top-end",
 				showConfirmButton: false,
-				timer: 3000,
+				timer: 1500,
 				timerProgressBar: true,
 				didOpen: (toast) => {
 					toast.onmouseenter = Swal.stopTimer;
@@ -32,7 +32,7 @@ if (isset($_POST['remove'])) {
 	
 			Toast.fire({
 				icon: "success",
-				title: "Pig removed from sales successfully"
+				title: "Pig removed from sold successfully"
 			}).then(() => {
 				window.location.href = "manage-sold.php"
 			})

@@ -1,5 +1,6 @@
 <?php
 include 'setting/system.php';
+include 'theme/head.php';
 
 if (isset($_POST['removed'])) {
 	$id = $_POST['selector'];
@@ -8,7 +9,7 @@ if (isset($_POST['removed'])) {
 		$query = $db->query("DELETE FROM breed where id ='$id[$i]'");
 	}
 ?>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 	<script>
 		const Toast = Swal.mixin({
 			toast: true,

@@ -24,13 +24,13 @@ if (isset($_POST['submit'])) {
 					toast.onmouseleave = Swal.resumeTimer;
 				}
 			});
-	
+
 			Toast.fire({
 				icon: "success",
 				title: "Classification added successfully"
 			});
 		</script>
-<?php
+	<?php
 		// header('refresh: 1.5');
 	}
 }
@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
 					toast.onmouseleave = Swal.resumeTimer;
 				}
 			});
-	
+
 			Toast.fire({
 				icon: "success",
 				title: "Classification updated successfully"
@@ -65,7 +65,7 @@ if (isset($_POST['update'])) {
 				window.location.href = "manage-classification.php"
 			});
 		</script>
-<?php
+	<?php
 		// header('refresh: 1.5;url=manage-classification.php');
 	}
 }
@@ -75,12 +75,12 @@ if (isset($_GET['delete'])) {
 	$query = $db->query("DELETE FROM classification WHERE id = '$id'");
 
 	if ($query) {
-		?>
-			<!-- <script>
+	?>
+		<!-- <script>
 				alert('Classification deleted successfully. Click OK to close dialogue.')
 			</script> -->
 
-			<script>
+		<script>
 			const Toast = Swal.mixin({
 				toast: true,
 				position: "top-end",
@@ -92,7 +92,7 @@ if (isset($_GET['delete'])) {
 					toast.onmouseleave = Swal.resumeTimer;
 				}
 			});
-	
+
 			Toast.fire({
 				icon: "success",
 				title: "Classification deleted successfully"
@@ -100,7 +100,7 @@ if (isset($_GET['delete'])) {
 				window.location.href = "manage-classification.php"
 			});
 		</script>
-		<?php
+<?php
 		// header('refresh: 1.5;url=manage-classification.php');
 	}
 }
@@ -124,7 +124,7 @@ if (isset($_GET['delete'])) {
 			<div class="col-md-12">
 				<a title="Check to delete from list" data-toggle="modal" data-target="#_removed" id="delete" class="btn btn-danger"><i class="fa fa-trash"></i>
 				</a>
-				<form method="post" action="delete_classification.php">
+				<form method="post" action="delete-classification.php">
 					<table class="table table-hover table-bordered" id="table">
 						<thead>
 							<tr>
@@ -165,7 +165,30 @@ if (isset($_GET['delete'])) {
 						</tbody>
 					</table>
 
-					<?php include('inc/modal-delete.php'); ?>
+					<?php #include('inc/modal-delete.php'); 
+					?>
+					<div id="_removed" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+									<h3 class="modal-title">Remove From Classification List ?</h3>
+								</div>
+
+								<div class="modal-body">
+									<div class="alert alert-danger">
+										<p>Are you sure you want to remove this from classification list?.</p>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button class="btn" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i> Close</button>
+									<button type="submit" name="removed" class="btn btn-danger"><i class="fa fa-check"></i> Yes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</form>
 			</div>
 
@@ -190,11 +213,11 @@ if (isset($_GET['delete'])) {
 					<div class="panel-heading"><?= $title ?></div>
 					<div class="panel-body">
 						<form method="post">
-						<?php
+							<?php
 							if ($id !== null) {
-								?>
-									<input type="hidden" name="id" value="<?= $id ?>">
-								<?php
+							?>
+								<input type="hidden" name="id" value="<?= $id ?>">
+							<?php
 							}
 							?>
 							<div class="form-group">
@@ -216,18 +239,18 @@ if (isset($_GET['delete'])) {
 
 <script>
 	function showDelete() {
-    Swal.fire({
-      title: "Do you want to delete this to classification?",
-      showDenyButton: true,
-      confirmButtonText: "Yes",
-      denyButtonText: `No`
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        window.location.href = "?delete&id=<?php echo $n->id ?>"
-      }
-    });
-  }
+		Swal.fire({
+			title: "Do you want to delete this to classification?",
+			showDenyButton: true,
+			confirmButtonText: "Yes",
+			denyButtonText: `No`
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				window.location.href = "?delete&id=<?php echo $n->id ?>"
+			}
+		});
+	}
 </script>
 
 <?php include 'theme/foot.php'; ?>
