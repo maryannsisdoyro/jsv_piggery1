@@ -259,7 +259,7 @@
 
 					<div class="form-group">
 						<label class="control-label">Remark</label>
-						<textarea class="form-control" name="remark" required></textarea>
+						<textarea class="form-control" style="display: none !important;" name="remark" required></textarea>
 					</div>
 
 					<div class="form-group">
@@ -272,7 +272,7 @@
 						<input type="file" name="pigphoto" class="form-control" required>
 					</div>
 
-					<button name="submit" type="submit" name="submit" class="btn btn-sn btn-default">Update</button>
+					<button name="submit" type="submit" name="submit" class="btn btn-sn btn-default">Submit</button>
 				</form>
 			</div>
 		</div>
