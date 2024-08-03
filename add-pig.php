@@ -132,8 +132,8 @@
 					<div class="row gap-2">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label">Pig Weight</label>
-								<input type="text" name="weight" class="form-control" required>
+								<label class="control-label">Pig Weight(kilo)</label>
+								<input type="text" name="weight" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" required>
 							</div>
 						</div>
 

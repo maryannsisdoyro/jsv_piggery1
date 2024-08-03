@@ -31,11 +31,12 @@
               <th>Feed</th>
               <th>Vitamins</th>
               <th>Weight</th>
+              <th>Price</th>
               <th>Month</th>
               <th>Gender</th>
               <th>Health Status</th>
               <th>Arrived</th>
-              <th>Remark</th>
+              <!-- <th>Remark</th> -->
               <th>Desc.</th>
               <th></th>
             </tr>
@@ -69,11 +70,12 @@
                   <td><?php echo $feed->name ?></td>
                   <td><?php echo $vitamins->name ?></td>
                   <td><?php echo $data->weight ?></td>
+                  <td>₱ <?php echo number_format((int)$data->weight * 200) ?></td>
                   <td><?= $data->month ?></td>
                   <td><?php echo $data->gender ?></td>
                   <td><?php echo $data->health_status ?></td>
                   <td><?php echo $data->arrived ?></td>
-                  <td><?php echo wordwrap($data->remark, 300, '<br>'); ?></td>
+                  <!-- <td><?php echo wordwrap($data->remark, 300, '<br>'); ?></td> -->
                   <td><?php echo $data->description ?></td>
                   <td>
                     <div class="dropdown">

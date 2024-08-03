@@ -12,7 +12,12 @@
  	
  	$pigno = $bname = $b_id = $cname = $c_id = $fname = $f_id = $vname = $v_id =$health = "";
  	$id = (int)$_GET['id'];
- 	$query = $db->query("SELECT * FROM pigs WHERE id = '$id' ");
+
+    $sold_query = $db->query("SELECT * FROM sold WHERE id = '$id' ");
+    $fetch_sold = $sold_query->fetch(PDO::FETCH_OBJ);
+    $pig_id = $fetch_sold->pig_id;
+
+ 	$query = $db->query("SELECT * FROM pigs WHERE id = '$pig_id' ");
  	$fetchObj = $query->fetchAll(PDO::FETCH_OBJ);
 
  	foreach($fetchObj as $obj){
@@ -59,7 +64,7 @@
     return $months;
 }
 
-$get = $db->query("SELECT p.weight,p.pigno,s.date_sold,s.reason,s.buyer,s.price,p.id,s.money FROM sold s LEFT JOIN pigs p ON s.pig_id = p.id");
+$get = $db->query("SELECT p.weight,p.pigno,s.date_sold,s.reason,s.buyer,s.price,p.id,s.money FROM sold s LEFT JOIN pigs p ON s.pig_id = p.id WHERE s.id = '$id'");
 $res = $get->fetch(PDO::FETCH_OBJ);
 
 $startDate = $arrived;

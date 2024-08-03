@@ -80,7 +80,7 @@
 									<td><?php echo $n->vitamins; ?> </td>
 									<td> <?php echo $n->reason; ?> </td>
 									<td>
-										<a href="receipt.php?id=<?= $n->pig_id ?>" class="btn btn-primary">
+										<a href="receipt.php?id=<?= $n->id ?>" class="btn btn-primary">
 											<i class="fa fa-print"> Receipt</i>
 										</a>
 									</td>

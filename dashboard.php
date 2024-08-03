@@ -243,19 +243,53 @@
     </table>
   </div> -->
 
+  
+  <?php 
+    function getSold($month, $conn){
+      $year = date('Y');
+
+      $stmt = $conn->query("SELECT SUM(price) AS TOTAL FROM sold WHERE MONTH(date_sold) = '$month' AND YEAR(date_sold) = '$year'");
+      
+      if ($stmt->rowCount() > 0) {
+        $fetch = $stmt->fetch(PDO::FETCH_OBJ);
+        $result = $fetch->TOTAL;
+      }else{
+        $result = 0;
+      }
+      return $result;
+    }    
+
+    $jan = getSold("01", $db) ?? 0;
+    $feb = getSold("02", $db) ?? 0;
+    $mar = getSold("03", $db) ?? 0;
+    $apr = getSold("04", $db) ?? 0;
+    $may = getSold("05", $db) ?? 0;
+    $jun = getSold("06", $db) ?? 0;
+    $july = getSold("07", $db) ?? 0;
+    $aug = getSold("08", $db) ?? 0;
+    $sept = getSold("09", $db) ?? 0;
+    $oct = getSold("10", $db) ?? 0;
+    $nov = getSold("11", $db) ?? 0;
+    $dec = getSold("12", $db) ?? 0;
+
+    $total_sales = $jan + $feb + $mar + $apr + $may + $jun + $july + $aug + $sept + $oct + $nov + $dec;
+
+  ?>
 
 
   <script>
-    var xValues = ["Pigs", "Quarantine", "Sold", "Breeds", "Vitamins", "Feeds", "Classifications"];
-    var yValues = [<?php echo $pCount;  ?>, <?php echo $quarantine;  ?>, <?php echo $sold;  ?>, <?php echo $bCount;  ?>, <?php echo $vCount;  ?>, <?php echo $fCount;  ?>, <?php echo $cCount;  ?>];
-    var barColors = ["#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2"];
+    var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var yValues = [<?php echo $jan;  ?>, <?php echo $feb;  ?>, <?php echo $mar;  ?>, <?php echo $apr;  ?>, <?php echo $may;  ?>, <?php echo $jun;  ?>, <?php echo $july;  ?>, <?php echo $aug;  ?>, <?php echo $sept;  ?>, <?php echo $oct;  ?>, <?php echo $nov;  ?>, <?php echo $dec;  ?>];
+    // var barColors = ["#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2", "#478ef2"];
+    
 
     new Chart("myChart", {
-      type: "bar",
+      type: "line",
       data: {
         labels: xValues,
         datasets: [{
-          backgroundColor: barColors,
+          
+          borderColor: "#478ef2",
           data: yValues
         }]
       },
@@ -265,8 +299,11 @@
         },
         title: {
           display: true,
-          text: "Total Records"
-        }
+          text: "Annual Sales ( <?= number_format($total_sales) ?> )"
+        },
+        scales: {
+      yAxes: [{ticks: {min: 0}}],
+    }
       }
     });
   </script>

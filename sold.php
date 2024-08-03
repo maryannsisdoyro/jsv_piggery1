@@ -17,6 +17,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 		$pid = $obj->id;
 		$pigno = $obj->pigno;
 		$b_id = $obj->breed_id;
+		$p_price = (int)$obj->weight * 200;
 		$c_id = $obj->classification_id;
 		$f_id = $obj->feed_id;
 		$v_id = $obj->vitamins_id;
@@ -106,11 +107,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 
 					$n_id = $_GET['id'];
 
-					$insert_query = $db->query("INSERT INTO sold(pig_id, date_sold, reason, buyer, price, money)VALUES('$id','$now', '$n_remark', '$buyer', '$price', '$money') ");
-
-					$update_pig = $db->query("UPDATE pigs SET status = '$status' WHERE id = '$id'");
-
-					if ($insert_query) {
+					if ($price > $money) {
 				?>
 						<script>
 							const Toast = Swal.mixin({
@@ -126,36 +123,74 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 							});
 
 							Toast.fire({
-								icon: "success",
-								title: "Pig successfully sold"
-							}).then(() => {
-								window.location.href = "receipt.php?id=<?= $pid ?>"
+								icon: "error",
+								title: "Error, Cash must not be less than the price"
 							});
 						</script>
 					<?php
+					} else {
+						$insert_query = $db->query("INSERT INTO sold(pig_id, date_sold, reason, buyer, price, money)VALUES('$id','$now', '$n_remark', '$buyer', '$price', '$money') ");
 
-					} else { ?>
+						$update_pig = $db->query("UPDATE pigs SET status = '$status' WHERE id = '$id'");
 
-						<script>
-							const Toast = Swal.mixin({
-								toast: true,
-								position: "top-end",
-								showConfirmButton: false,
-								timer: 3000,
-								timerProgressBar: true,
-								didOpen: (toast) => {
-									toast.onmouseenter = Swal.stopTimer;
-									toast.onmouseleave = Swal.resumeTimer;
-								}
-							});
+						// AMO INI GI PULI 
+						// GI KUHA ANG LATEST NA SOLD BALI ANG ATON GI ADD NGA BAG O SA SOLD
+						if ($update_pig) {
+							$get_sold = $db->query("SELECT * FROM sold ORDER BY id DESC");
+							$fetch_sold = $get_sold->fetch(PDO::FETCH_OBJ);
 
-							Toast.fire({
-								icon: "error",
-								title: "Error inserting pig data. Please try again"
-							});
-						</script>
-				<?php
+							$new_sold = $fetch_sold->id;
+						}
+
+						if ($insert_query) {
+							?>
+								<script>
+									const Toast = Swal.mixin({
+										toast: true,
+										position: "top-end",
+										showConfirmButton: false,
+										timer: 3000,
+										timerProgressBar: true,
+										didOpen: (toast) => {
+											toast.onmouseenter = Swal.stopTimer;
+											toast.onmouseleave = Swal.resumeTimer;
+										}
+									});
+		
+									Toast.fire({
+										icon: "success",
+										title: "Pig successfully sold"
+									}).then(() => {
+										window.location.href = "receipt.php?id=<?= $new_sold ?>"
+									});
+								</script>
+							<?php
+		
+							} else { ?>
+		
+								<script>
+									const Toast = Swal.mixin({
+										toast: true,
+										position: "top-end",
+										showConfirmButton: false,
+										timer: 3000,
+										timerProgressBar: true,
+										didOpen: (toast) => {
+											toast.onmouseenter = Swal.stopTimer;
+											toast.onmouseleave = Swal.resumeTimer;
+										}
+									});
+		
+									Toast.fire({
+										icon: "error",
+										title: "Error inserting pig data. Please try again"
+									});
+								</script>
+						<?php
+							}
+
 					}
+
 				}
 
 				?>
@@ -176,7 +211,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 
 					<div class="form-group">
 						<label class="control-label">Price</label>
-						<input type="text" name="price" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" required>
+						<input type="text" name="price" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" value="<?= $p_price ?>" readonly required>
 					</div>
 
 					<div class="form-group">
