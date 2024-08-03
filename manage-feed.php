@@ -9,7 +9,17 @@ if (isset($_POST['submit'])) {
 	$brand = $_POST['brand'];
 
 	if (!empty($name) && !empty($stock)) {
-		$query = $db->query("INSERT INTO feed(name,stock,brand)VALUES('$name', '$stock','$brand')");
+
+		$check_feed = $db->query("SELECT * FROM feed WHERE name = '$name'");
+
+		if ($check_feed->rowCount() > 0) {
+			$get_data = $check_feed->fetch(PDO::FETCH_OBJ);
+			$old_stock = $get_data->stock + (int)$stock;
+			$query = $db->query("UPDATE feed SET stock = '$old_stock' ,brand = '$brand' WHERE name = '$name'");
+		}else{
+			$query = $db->query("INSERT INTO feed(name,stock,brand)VALUES('$name', '$stock','$brand')");
+		}
+
 
 		if ($query) { ?>
 			<!-- <script>
