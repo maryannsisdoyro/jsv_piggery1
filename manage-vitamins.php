@@ -13,6 +13,8 @@ if (isset($_POST['submit'])) {
 		$check_vitamins = $db->query("SELECT * FROM vitamins WHERE name = '$name'");
 
 		if ($check_vitamins->rowCount() > 0) {
+			$fetch_data = $check_vitamins->fetch(PDO::FETCH_OBJ);
+			$old_stock = $fetch_data->stock + (int)$stock;
 			$query = $db->query("UPDATE vitamins SET stock = '$stock' brand = '$brand' WHERE name = '$name'");
 		}else{
 			$query = $db->query("INSERT INTO vitamins(name,stock,brand)VALUES('$name', '$stock', '$brand')");
