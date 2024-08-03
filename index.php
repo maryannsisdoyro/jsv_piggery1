@@ -1,5 +1,7 @@
 <?php include 'setting/system.php'; ?>
-<?php include 'theme/head.php'; ?>
+<?php include 'theme/head.php'; 
+echo "hello world";
+?>
 
 <div class="container">
 	<div class="row" style="margin-top: 10%">
