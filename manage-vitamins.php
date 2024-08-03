@@ -9,7 +9,16 @@ if (isset($_POST['submit'])) {
 	$stock = $_POST['stock'];
 
 	if (!empty($name) && !empty($stock) && !empty($brand)) {
-		$query = $db->query("INSERT INTO vitamins(name,stock,brand)VALUES('$name', '$stock', '$brand')");
+
+		$check_vitamins = $db->query("SELECT * FROM vitamins WHERE name = '$name'");
+
+		if ($check_vitamins->rowCount() > 0) {
+			$query = $db->query("UPDATE vitamins SET stock = '$stock' brand = '$brand' WHERE name = '$name'");
+		}else{
+			$query = $db->query("INSERT INTO vitamins(name,stock,brand)VALUES('$name', '$stock', '$brand')");
+		}
+
+	
 
 		if ($query) { ?>
 			<!-- <script>
