@@ -64,11 +64,11 @@
     return $months;
 }
 
-$get = $db->query("SELECT p.weight,p.pigno,s.date_sold,s.reason,s.buyer,s.price,p.id,s.money FROM sold s LEFT JOIN pigs p ON s.pig_id = p.id WHERE s.id = '$id'");
+$get = $db->query("SELECT p.weight,p.pigno,s.date_sold,s.reason,s.buyer,s.price,p.id,s.money,p.month FROM sold s LEFT JOIN pigs p ON s.pig_id = p.id WHERE s.id = '$id'");
 $res = $get->fetch(PDO::FETCH_OBJ);
 
-$startDate = $arrived;
-$endDate = $res->date_sold;
+// $startDate = $arrived;
+// $endDate = $res->date_sold;
 
 ?>
 <!-- !PAGE CONTENT! -->
@@ -105,7 +105,7 @@ $endDate = $res->date_sold;
             </tr>
             <tr>
                 <td><?= $res->pigno ?></td>
-                <td><?= countMonths($startDate, $endDate) ?></td>
+                <td><?= $res->month ?? 0 ?></td>
                 <td><?= $res->weight ?></td>
                 <td><?= number_format($res->price, 2) ?></td>
             </tr>

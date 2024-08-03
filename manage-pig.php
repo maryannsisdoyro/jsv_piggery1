@@ -83,9 +83,9 @@
                         <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><a href="edit-pig.php?id=<?php echo $data->id ?>"><i class="fa fa-edit"></i> Edit</a></li>
-                        <li><a onclick="return showDelete()"><i class="fa fa-trash"></i> Delete</a></li>
-                        <li><a onclick="return showQuarantine()" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Quarantine Pig</a></li>
-                        <li><a onclick="return showSold()" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Sold Pig</a></li>
+                        <li><a onclick="return showDelete(<?= $data->id ?>)"><i class="fa fa-trash"></i> Delete</a></li>
+                        <li><a onclick="return showQuarantine(<?= $data->id ?>)" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Quarantine Pig</a></li>
+                        <li><a onclick="return showSold(<?= $data->id ?>)" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Sold Pig</a></li>
                       </ul>
                     </div>
                   </td>
@@ -104,7 +104,7 @@
 </div>
 
 <script>
-  function showSold() {
+  function showSold(x) {
     Swal.fire({
       title: "Do you want to sell this pig?",
       showDenyButton: true,
@@ -113,12 +113,12 @@
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        window.location.href = "sold.php?id=<?php echo $data->id; ?>"
+        window.location.href = "sold.php?id=" + x
       }
     });
   }
 
-  function showQuarantine() {
+  function showQuarantine(x) {
     Swal.fire({
       title: "Do you want to add this to quarantine?",
       showDenyButton: true,
@@ -127,12 +127,12 @@
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        window.location.href = "quarantine.php?id=<?php echo $data->id; ?>"
+        window.location.href = "quarantine.php?id=" + x
       }
     });
   }
 
-  function showDelete() {
+  function showDelete(x) {
     Swal.fire({
       title: "Do you want to delete this to pig?",
       showDenyButton: true,
@@ -141,7 +141,7 @@
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        window.location.href = "delete.php?id=<?php echo $data->id ?>"
+        window.location.href = "delete.php?id=" + x
       }
     });
   }
