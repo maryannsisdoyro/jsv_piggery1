@@ -190,7 +190,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 						<select name="classification" class="form-control">
 							<option value="" selected>Select Classification</option>
 							<?php
-							$getClassification = $db->query("SELECT * FROM Classification");
+							$getClassification = $db->query("SELECT * FROM classification");
 							$classifs = $getClassification->fetchAll(PDO::FETCH_OBJ);
 							foreach ($classifs as $classif) { 
 								if ($classif->id == $c_id) {
