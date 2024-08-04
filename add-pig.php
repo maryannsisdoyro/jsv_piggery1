@@ -241,7 +241,6 @@
 								<label class="control-label">Vitamins</label>
 								<select name="vitamins" class="form-control" required>
 									<option value="">Select Vitamin</option>
-									<option value="">None</option>
 									<?php
 									$getVitamins = $db->query("SELECT * FROM vitamins");
 									$res = $getVitamins->fetchAll(PDO::FETCH_OBJ);
