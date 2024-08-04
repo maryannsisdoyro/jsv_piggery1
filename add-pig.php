@@ -150,9 +150,15 @@
 						<select name="month" class="form-control" required>
 							<?php 
 								for ($i = 1; $i <= 1000 ; $i++) { 
-									?>
+									if ($i == 1) {
+										?>
 									<option value="<?= $i ?>"><?= $i ?> month</option>
 									<?php 
+									}else if($i > 1){
+										?>
+										<option value="<?= $i ?>"><?= $i ?> months</option>
+										<?php 
+									}
 								}
 							?>
 							
@@ -171,7 +177,7 @@
 						<label class="control-label">Health Status</label>
 						<select name="status" class="form-control" required>
 							<option value="active">Active</option>
-							<option value="inactive">Inactive</option>
+							<!-- <option value="inactive">Inactive</option> -->
 							<option value="on treatment">On treatment</option>
 							<option value="sick">Sick</option>
 						</select>
@@ -235,6 +241,7 @@
 								<label class="control-label">Vitamins</label>
 								<select name="vitamins" class="form-control" required>
 									<option value="">Select Vitamin</option>
+									<option value="">None</option>
 									<?php
 									$getVitamins = $db->query("SELECT * FROM vitamins");
 									$res = $getVitamins->fetchAll(PDO::FETCH_OBJ);
@@ -249,17 +256,9 @@
 
 					</div>
 
-
-
-
-
-
-
-
-
 					<div class="form-group">
-						<label class="control-label">Remark</label>
-						<textarea class="form-control" style="display: none !important;" name="remark" required></textarea>
+						<label class="control-label" style="display: none;">Remark</label>
+						<input class="form-control" name="remark" type="hidden">
 					</div>
 
 					<div class="form-group">
@@ -272,7 +271,7 @@
 						<input type="file" name="pigphoto" class="form-control" required>
 					</div>
 
-					<button name="submit" type="submit" name="submit" class="btn btn-sn btn-default">Submit</button>
+					<button name="submit" type="submit" class="btn btn-sn btn-default">Submit</button>
 				</form>
 			</div>
 		</div>
