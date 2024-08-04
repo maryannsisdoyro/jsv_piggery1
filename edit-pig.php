@@ -11,13 +11,12 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 	$pigno = $weight = $gender = $remark = $arr = $bname = $b_id = $f_id =  $c_id = $v_id = $health = $img = "";
 	$id = (int)$_GET['id'];
 	$query = $db->query("SELECT * FROM pigs WHERE id = '$id' ");
-	$fetchObj = $query->fetchAll(PDO::FETCH_OBJ);
+	$obj = $query->fetch(PDO::FETCH_OBJ);
 
-	foreach ($fetchObj as $obj) {
-		$pigno = $obj->pigno;
+	$pigno = $obj->pigno;
 		$weight = $obj->weight;
 		$gender = $obj->gender;
-		$remark = $obj->remark;
+		$dec = $obj->description;
 		$arr = $obj->arrived;
 		$b_id = $obj->breed_id;
 		$c_id = $obj->classification_id;
@@ -27,18 +26,17 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 		$img = $obj->img;
 		$month = $obj->month;
 
-		$k = $db->query("SELECT * FROM breed WHERE id = '$b_id' ");
-		$k = $db->query("SELECT * FROM classification WHERE id = '$c_id' ");
-		$k = $db->query("SELECT * FROM feed WHERE id = '$f_id' ");
-		$k = $db->query("SELECT * FROM vitamins WHERE id = '$v_id' ");
-		$ks = $k->fetchAll(PDO::FETCH_OBJ);
-		foreach ($ks as $r) {
-			$bname = $r->name;
-			$fname = $r->name;
-			$cname = $r->name;
-			$vname = $r->name;
-		}
-	}
+		// $k = $db->query("SELECT * FROM breed WHERE id = '$b_id' ");
+		// $k = $db->query("SELECT * FROM classification WHERE id = '$c_id' ");
+		// $k = $db->query("SELECT * FROM feed WHERE id = '$f_id' ");
+		// $k = $db->query("SELECT * FROM vitamins WHERE id = '$v_id' ");
+		// $ks = $k->fetchAll(PDO::FETCH_OBJ);
+		// foreach ($ks as $r) {
+		// 	$bname = $r->name;
+		// 	$fname = $r->name;
+		// 	$cname = $r->name;
+		// 	$vname = $r->name;
+		// }
 }
 
 ?>
@@ -68,13 +66,13 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					$n_classification = $_POST['classification'];
 					$n_feed = $_POST['feed'];
 					$nvitamins = $_POST['vitamins'];
-					$n_remark = $_POST['remark'];
+					$n_remark = $_POST['description'];
 					$n_status = $_POST['status'];
 					$n_month = $_POST['month'];
 
 					$n_id = $_GET['id'];
 
-					$update_query = $db->query("UPDATE pigs SET pigno = '$n_pigno',weight = '$n_weight',arrived = '$n_arrived', breed_id = '$n_breed',classification_id = '$n_classification',   feed_id = '$n_feed', remark = '$n_remark',health_status = '$n_status', month = '$n_month' WHERE id = '$n_id' ");
+					$update_query = $db->query("UPDATE pigs SET pigno = '$n_pigno',weight = '$n_weight',arrived = '$n_arrived', breed_id = '$n_breed',classification_id = '$n_classification',   feed_id = '$n_feed', description = '$n_remark',health_status = '$n_status', month = '$n_month' WHERE id = '$n_id' ");
 
 					if ($update_query) { ?>
 
@@ -150,21 +148,38 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 						<input type="text" name="arrived" class="form-control" value="<?php echo $arr; ?>">
 					</div>
 
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="control-label">Health Status</label>
 						<input type="text" name="status" class="form-control" value="<?php echo $health; ?>">
+					</div> -->
+
+					<div class="form-group">
+						<label class="control-label">Health Status</label>
+						<select name="status" class="form-control" required>
+							<option value="active" <?php echo $health == 'active' ? 'selected' : ''; ?>>Active</option>
+							<!-- <option value="inactive">Inactive</option> -->
+							<option value="on treatment" <?php echo $health == 'on treatment' ? 'selected' : ''; ?>>On treatment</option>
+							<option value="sick" <?php echo $health == 'sick' ? 'selected' : ''; ?>>Sick</option>
+						</select>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label">Breed</label>
 						<select name="breed" class="form-control">
-							<option value="<?php echo $b_id; ?>" selected><?php echo $bname; ?></option>
+							<option value="" selected>Select Breed</option>
 							<?php
 							$getBreed = $db->query("SELECT * FROM breed");
-							$res = $getBreed->fetchAll(PDO::FETCH_OBJ);
-							foreach ($res as $r) { ?>
-								<option value="<?php echo $r->id; ?>"><?php echo $r->name; ?></option>
-							<?php
+							$breeds = $getBreed->fetchAll(PDO::FETCH_OBJ);
+							foreach ($breeds as $breed) { 
+								if ($breed->id == $b_id) {
+									?>
+										<option selected value="<?php echo $breed->id; ?>"><?php echo $breed->name; ?></option>
+									<?php
+								}else{
+									?>
+										<option value="<?php echo $breed->id; ?>"><?php echo $breed->name; ?></option>
+									<?php
+								}
 							}
 							?>
 						</select>
@@ -173,13 +188,20 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					<div class="form-group">
 						<label class="control-label">Classification</label>
 						<select name="classification" class="form-control">
-							<option value="<?php echo $c_id; ?>" selected><?php echo $r->name; ?></option>
+							<option value="" selected>Select Classification</option>
 							<?php
 							$getClassification = $db->query("SELECT * FROM Classification");
-							$res = $getClassification->fetchAll(PDO::FETCH_OBJ);
-							foreach ($res as $r) { ?>
-								<option value="<?php echo $r->id; ?>"><?php echo $r->name; ?></option>
-							<?php
+							$classifs = $getClassification->fetchAll(PDO::FETCH_OBJ);
+							foreach ($classifs as $classif) { 
+								if ($classif->id == $c_id) {
+									?>
+									<option value="<?php echo $classif->id; ?>"><?php echo $classif->name; ?></option>
+								<?php
+								}else{
+									?>
+									<option selected value="<?php echo $classif->id; ?>"><?php echo $classif->name; ?></option>
+								<?php
+								}
 							}
 							?>
 						</select>
@@ -188,13 +210,20 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					<div class="form-group">
 						<label class="control-label">Feed</label>
 						<select name="feed" class="form-control">
-							<option value="<?php echo $f_id; ?>" selected><?php echo $r->name; ?></option>
+							<option value="" selected>Select Feed</option>
 							<?php
 							$getFeed = $db->query("SELECT * FROM feed");
-							$res = $getFeed->fetchAll(PDO::FETCH_OBJ);
-							foreach ($res as $r) { ?>
-								<option value="<?php echo $r->f_id; ?>"><?php echo $r->name; ?></option>
-							<?php
+							$feeds = $getFeed->fetchAll(PDO::FETCH_OBJ);
+							foreach ($feeds as $feed) { 
+								if ($feed->id == $f_id) {
+									?>
+								<option selected value="<?php echo $feed->f_id; ?>"><?php echo $feed->name; ?></option>
+								<?php
+								}else{
+									?>
+								<option value="<?php echo $feed->f_id; ?>"><?php echo $feed->name; ?></option>
+								<?php
+								}
 							}
 							?>
 						</select>
@@ -203,13 +232,20 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					<div class="form-group">
 						<label class="control-label">Vitamins</label>
 						<select name="vitamins" class="form-control">
-							<option value="<?php echo $v_id; ?>" selected><?php echo $r->name; ?></option>
+							<option value="" selected>Select Vitamins</option>
 							<?php
 							$getVitamins = $db->query("SELECT * FROM vitamins");
-							$res = $getVitamins->fetchAll(PDO::FETCH_OBJ);
-							foreach ($res as $r) { ?>
-								<option value="<?php echo $r->v_id; ?>"><?php echo $r->name; ?></option>
-							<?php
+							$vitamins = $getVitamins->fetchAll(PDO::FETCH_OBJ);
+							foreach ($vitamins as $vitamin) { 
+								if ($vitamin->id == $v_id) {
+									?>
+								<option selected value="<?php echo $vitamin->v_id; ?>"><?php echo $vitamin->name; ?></option>
+								<?php
+								}else{
+									?>
+								<option value="<?php echo $vitamin->v_id; ?>"><?php echo $vitamin->name; ?></option>
+								<?php
+								}
 							}
 							?>
 						</select>
@@ -218,7 +254,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 
 					<div class="form-group">
 						<label class="control-label">Description</label>
-						<textarea class="form-control" name="remark"><?php echo $remark; ?></textarea>
+						<textarea class="form-control" name="description"><?php echo $dec; ?></textarea>
 					</div>
 
 					<button name="submit" type="submit" name="submit" class="btn btn-sn btn-default">Update</button>
