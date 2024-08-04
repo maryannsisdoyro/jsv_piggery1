@@ -70,7 +70,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					$n_status = $_POST['status'];
 					$n_month = $_POST['month'];
 
-					$n_id = $_GET['id'];
+					$n_id = $_POST['id'];
 
 					$update_query = $db->query("UPDATE pigs SET pigno = '$n_pigno',weight = '$n_weight',arrived = '$n_arrived', breed_id = '$n_breed',classification_id = '$n_classification',   feed_id = '$n_feed', description = '$n_remark',health_status = '$n_status', month = '$n_month' WHERE id = '$n_id' ");
 
@@ -113,6 +113,7 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 
 				<h2>Edit Pig</h2>
 				<form method="post">
+					<input type="hidden" name="id" value="<?= $id ?>">
 					<div class="form-group">
 						<label class="control-label">Pig No.</label>
 						<input type="text" name="pigno" class="form-control" value="<?php echo $pigno; ?>">

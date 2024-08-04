@@ -43,21 +43,21 @@
           </thead>
           <tbody>
             <?php
-            $all_pig = $db->query("SELECT * FROM pigs WHERE status = 1 ORDER BY id DESC ");
+            $all_pig = $db->query("SELECT p.*,b.name AS breed_name, c.name AS class_name, v.name AS vita_name, f.name AS feed_name  FROM pigs p LEFT JOIN breed b ON p.breed_id = b.id LEFT JOIN vitamins v ON p.vitamins_id = v.id LEFT JOIN classification c ON p.classification_id = c.id LEFT JOIN feed f ON p.feed_id = f.id WHERE p.status = 1 ORDER BY p.id DESC ");
             $fetch = $all_pig->fetchAll(PDO::FETCH_OBJ);
             foreach ($fetch as $data) {
-              $get_breed = $db->query("SELECT * FROM breed WHERE id = '$data->breed_id'");
-              $breed_result = $get_breed->fetchAll(PDO::FETCH_OBJ);
-              foreach ($breed_result as $breed)
-                $get_classification = $db->query("SELECT * FROM classification WHERE id = '$data->classification_id'");
-              $classification_result = $get_classification->fetchAll(PDO::FETCH_OBJ);
-              foreach ($classification_result as $classification)
-                $get_feed = $db->query("SELECT * FROM feed WHERE id = '$data->feed_id'");
-              $feed_result = $get_feed->fetchAll(PDO::FETCH_OBJ);
-              foreach ($feed_result as $feed)
-                $get_vitamins = $db->query("SELECT * FROM vitamins WHERE id = '$data->vitamins_id'");
-              $vitamins_result = $get_vitamins->fetchAll(PDO::FETCH_OBJ);
-              foreach ($vitamins_result as $vitamins) {
+              // $get_breed = $db->query("SELECT * FROM breed WHERE id = '$data->breed_id'");
+              // $breed_result = $get_breed->fetchAll(PDO::FETCH_OBJ);
+              // foreach ($breed_result as $breed)
+              //   $get_classification = $db->query("SELECT * FROM classification WHERE id = '$data->classification_id'");
+              // $classification_result = $get_classification->fetchAll(PDO::FETCH_OBJ);
+              // foreach ($classification_result as $classification)
+              //   $get_feed = $db->query("SELECT * FROM feed WHERE id = '$data->feed_id'");
+              // $feed_result = $get_feed->fetchAll(PDO::FETCH_OBJ);
+              // foreach ($feed_result as $feed)
+              //   $get_vitamins = $db->query("SELECT * FROM vitamins WHERE id = '$data->vitamins_id'");
+              // $vitamins_result = $get_vitamins->fetchAll(PDO::FETCH_OBJ);
+              // foreach ($vitamins_result as $vitamins) {
             ?>
                 <tr>
                   <td><?php echo $data->id ?></td>
@@ -65,10 +65,10 @@
                     <img width="70" height="70" src="<?php echo $data->img; ?>" class="img img-responsive thumbnail">
                   </td>
                   <td><?php echo $data->pigno ?></td>
-                  <td><?php echo $breed->name ?></td>
-                  <td><?php echo $classification->name ?></td>
-                  <td><?php echo $feed->name ?></td>
-                  <td><?php echo $vitamins->name ?></td>
+                  <td><?php echo $data->breed_name ?></td>
+                  <td><?php echo $data->class_name ?></td>
+                  <td><?php echo $data->feed_name ?></td>
+                  <td><?php echo $data->vita_name ?></td>
                   <td><?php echo $data->weight ?></td>
                   <td>₱ <?php echo number_format((int)$data->weight * 200) ?></td>
                   <td><?= $data->month ?></td>
@@ -92,7 +92,7 @@
                 </tr>
             <?php
               }
-            }
+            // }
             ?>
           </tbody>
         </table>
