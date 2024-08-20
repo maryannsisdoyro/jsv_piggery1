@@ -43,21 +43,28 @@
           </thead>
           <tbody>
             <?php
-            $all_pig = $db->query("SELECT p.*,b.name AS breed_name, c.name AS class_name, v.name AS vita_name, f.name AS feed_name  FROM pigs p LEFT JOIN breed b ON p.breed_id = b.id LEFT JOIN vitamins v ON p.vitamins_id = v.id LEFT JOIN classification c ON p.classification_id = c.id LEFT JOIN feed f ON p.feed_id = f.id WHERE p.status = 1 ORDER BY p.id DESC ");
+            $all_pig = $db->query("SELECT 
+			p.*,b.name AS breed_name,
+			c.name AS class_name, 
+			v.name AS vita_name, 
+			f.name AS feed_name,
+			a.date_created  
+			FROM 
+				pigs p 
+			INNER JOIN 
+				anay a ON p.id = a.pig_id
+			LEFT JOIN
+			 	breed b ON p.breed_id = b.id 
+			LEFT JOIN
+			 	vitamins v ON p.vitamins_id = v.id 
+			LEFT JOIN 
+				classification c ON p.classification_id = c.id 
+			LEFT JOIN 
+				feed f ON p.feed_id = f.id 
+			WHERE p.status = 4 ORDER BY p.id DESC ");
             $fetch = $all_pig->fetchAll(PDO::FETCH_OBJ);
             foreach ($fetch as $data) {
-              // $get_breed = $db->query("SELECT * FROM breed WHERE id = '$data->breed_id'");
-              // $breed_result = $get_breed->fetchAll(PDO::FETCH_OBJ);
-              // foreach ($breed_result as $breed)
-              //   $get_classification = $db->query("SELECT * FROM classification WHERE id = '$data->classification_id'");
-              // $classification_result = $get_classification->fetchAll(PDO::FETCH_OBJ);
-              // foreach ($classification_result as $classification)
-              //   $get_feed = $db->query("SELECT * FROM feed WHERE id = '$data->feed_id'");
-              // $feed_result = $get_feed->fetchAll(PDO::FETCH_OBJ);
-              // foreach ($feed_result as $feed)
-              //   $get_vitamins = $db->query("SELECT * FROM vitamins WHERE id = '$data->vitamins_id'");
-              // $vitamins_result = $get_vitamins->fetchAll(PDO::FETCH_OBJ);
-              // foreach ($vitamins_result as $vitamins) {
+             
             ?>
                 <tr>
                   <td><?php echo $data->id ?></td>
@@ -82,11 +89,8 @@
                       <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog"></i> Option
                         <span class="caret"></span></button>
                       <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="edit-pig.php?id=<?php echo $data->id ?>"><i class="fa fa-edit"></i> Edit</a></li>
+                        <li><a href="edit-anay.php?id=<?php echo $data->id ?>"><i class="fa fa-edit"></i> Edit</a></li>
                         <li><a onclick="return showDelete(<?= $data->id ?>)"><i class="fa fa-trash"></i> Delete</a></li>
-                        <li><a onclick="return showPregnant(<?= $data->id ?>)" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Anay Pig</a></li>
-                        <li><a onclick="return showQuarantine(<?= $data->id ?>)" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Quarantine Pig</a></li>
-                        <li><a onclick="return showSold(<?= $data->id ?>)" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Sold Pig</a></li>
                       </ul>
                     </div>
                   </td>
@@ -105,47 +109,6 @@
 </div>
 
 <script>
-  function showSold(x) {
-    Swal.fire({
-      title: "Do you want to sell this pig?",
-      showDenyButton: true,
-      confirmButtonText: "Yes",
-      denyButtonText: `No`
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        window.location.href = "sold.php?id=" + x
-      }
-    });
-  }
-
-  function showQuarantine(x) {
-    Swal.fire({
-      title: "Do you want to add this to quarantine?",
-      showDenyButton: true,
-      confirmButtonText: "Yes",
-      denyButtonText: `No`
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        window.location.href = "quarantine.php?id=" + x
-      }
-    });
-  }
-
-  function showPregnant(x) {
-    Swal.fire({
-      title: "Is this pig a Anay?",
-      showDenyButton: true,
-      confirmButtonText: "Yes",
-      denyButtonText: `No`
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        window.location.href = "manage-pig.php?pregnant&id=" + x
-      }
-    });
-  }
 
   function showDelete(x) {
     Swal.fire({
@@ -156,7 +119,7 @@
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        window.location.href = "delete.php?id=" + x
+        window.location.href = "delete-anay.php?id=" + x
       }
     });
   }

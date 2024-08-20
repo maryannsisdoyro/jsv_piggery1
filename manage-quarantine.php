@@ -28,7 +28,8 @@
 	 				<tr>
 	 					<th></th>
 	 					<th>Pig No</th>
-	 					<th>Date quarantined</th>
+	 					<th>Date Start</th>
+						 <th>Date End</th>
 	 					<th>Breed</th>
 						 <th>Classification</th>
 						 <th>Feed</th>
@@ -42,6 +43,8 @@
 	 				$get = $db->query("SELECT
 						q.id, 
 						q.date_q,
+						q.date_start,
+						q.date_end,
 						q.reason,
 						b.name AS breed,
 						p.pigno,
@@ -64,13 +67,23 @@
 						p.status = 2
 					");
 	 				$res = $get->fetchAll(PDO::FETCH_OBJ);
-	 				foreach($res as $n){ ?>
+					$today_date = date('Y-m-d');
+	 				foreach($res as $n){ 
+						if ($n->date_end == $today_date) {
+							$update = $db->query("UPDATE pigs SET status = 1 WHERE id = '$n->pigno'");
+							if ($update) {
+								$delete = $db->query("DELETE FROM quarantine WHERE id = $n->id");
+							}
+						}
+						
+						?>
                          <tr>
                          	<td>
                          		<input type="checkbox" name="selector[]" value="<?php echo $n->id ?>">
                          	</td>
                          	<td> <?php echo $n->pigno; ?> </td>
-                         	<td>  <?php echo $n->date_q; ?> </td>
+                         	<td>  <?php echo $n->date_start; ?> </td>
+							 <td>  <?php echo $n->date_end; ?> </td>
                          	<td><?php echo $n->breed; ?> </td>
 							 <td><?php echo $n->classification; ?> </td>
 							 <td><?php echo $n->feed; ?> </td>

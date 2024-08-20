@@ -80,10 +80,12 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					$id = $_POST['id'];
 					$n_remark = $_POST['reason'];
 					$now = date('Y-m-d');
+					$date_end = $_POST['date_end'];
+					$date_start = $_POST['date_start'];
 					$n_id = $_GET['id'];
 					$status = 2;
 
-					$insert_query = $db->query("INSERT INTO quarantine(pig_no,reason,date_q)VALUES('$id','$n_remark','$now') ");
+					$insert_query = $db->query("INSERT INTO quarantine(pig_no,reason,date_q,date_end,date_start)VALUES('$id','$n_remark','$now', '$date_end','$date_start') ");
 
 					$update_pig = $db->query("UPDATE pigs SET status = '$status' WHERE id = '$id'");
 
@@ -135,6 +137,16 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 					</div>
 
 					<div class="form-group">
+						<label class="control-label">Quarantine Start</label>
+						<input type="text" name="date_start" class="form-control datepicker" value="<?= date('Y-m-d') ?>" required>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Quarantine End</label>
+						<input type="text" name="date_end" class="form-control datepicker" required>
+					</div>
+
+					<div class="form-group">
 						<label class="control-label">Reason</label>
 						<textarea name="reason" placeholder="Enter reason for quarantine" class="form-control" value=""></textarea>
 					</div>
@@ -146,5 +158,13 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 	</div>
 
 </div>
+
+<script>
+	$(document).ready(function(){
+		$('.datepicker').datepicker({
+			startDate: '3d'
+		});
+	})
+</script>
 
 <?php include 'theme/foot.php'; ?>
