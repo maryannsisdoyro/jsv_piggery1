@@ -7,6 +7,7 @@ if (isset($_POST['submit'])) {
 	$name = $_POST['feed'];
 	$stock = $_POST['stock'];
 	$brand = $_POST['brand'];
+	$kilo = $_POST['kilo'];
 
 	if (!empty($name) && !empty($stock)) {
 
@@ -15,9 +16,9 @@ if (isset($_POST['submit'])) {
 		if ($check_feed->rowCount() > 0) {
 			$get_data = $check_feed->fetch(PDO::FETCH_OBJ);
 			$old_stock = $get_data->stock + (int)$stock;
-			$query = $db->query("UPDATE feed SET stock = '$old_stock' ,brand = '$brand' WHERE name = '$name'");
+			$query = $db->query("UPDATE feed SET stock = '$old_stock' ,brand = '$brand', kilo='$kilo' WHERE name = '$name'");
 		}else{
-			$query = $db->query("INSERT INTO feed(name,stock,brand)VALUES('$name', '$stock','$brand')");
+			$query = $db->query("INSERT INTO feed(name,stock,brand,kilo)VALUES('$name', '$stock','$brand','$kilo')");
 		}
 
 
@@ -54,9 +55,10 @@ if (isset($_POST['update'])) {
 	$brand = $_POST['brand'];
 	$stock = $_POST['stock'];
 	$id = $_POST['id'];
+	$kilo = $_POST['kilo'];
 
 	if (!empty($name) && !empty($stock) && !empty($brand)) {
-		$query = $db->query("UPDATE feed SET name = '$name', stock = '$stock', brand = '$brand' WHERE id = '$id'");
+		$query = $db->query("UPDATE feed SET name = '$name', stock = '$stock', brand = '$brand',kilo='$kilo' WHERE id = '$id'");
 
 		if ($query) {
 		?>
@@ -151,6 +153,7 @@ if (isset($_GET['delete'])) {
 								<th>ID</th>
 								<th>Name</th>
 								<th>Brand</th>
+								<th>Kilo</th>
 								<th>Stock</th>
 								<th></th>
 							</tr>
@@ -168,6 +171,7 @@ if (isset($_GET['delete'])) {
 									<td> <?php echo $n->id; ?> </td>
 									<td> <?php echo $n->name; ?> </td>
 									<td> <?php echo $n->brand; ?> </td>
+									<td> <?php echo $n->kilo; ?> </td>
 									<td> <?php echo $n->stock; ?> </td>
 									<td class="dropdown">
 										<button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog"></i> Option
@@ -177,7 +181,7 @@ if (isset($_GET['delete'])) {
 												<a href="?edit&id=<?php echo $n->id ?>"><i class="fa fa-edit"></i> Edit</a>
 											</li>
 											<li>
-												<a onclick="return showDelete()" href="#"><i class="fa fa-trash"></i> Delete</a>
+												<a onclick="return showDelete(<?= $n->id ?>)" href="#"><i class="fa fa-trash"></i> Delete</a>
 											</li>
 										</ul>
 									</td>
@@ -221,6 +225,7 @@ if (isset($_GET['delete'])) {
 			$stock = null;
 			$button_name = "submit";
 			$id = "";
+			$kilo = "";
 			if (isset($_GET['edit'])) {
 				$id = $_GET['id'];
 				$get = $db->query("SELECT * FROM feed WHERE id = '$id'");
@@ -229,6 +234,7 @@ if (isset($_GET['delete'])) {
 				$name = $res->name;
 				$brand = $res->brand;
 				$stock = $res->stock;
+				$kilo = $res->kilo;
 				$button_name = "update";
 			}
 
@@ -253,8 +259,11 @@ if (isset($_GET['delete'])) {
 								<label class="control-label">Feed Brand</label>
 								<input type="text" name="brand" class="form-control" placeholder="Enter feed name" value="<?= $brand ?>">
 
+								<label class="control-label">Feed Kilograms</label>
+								<input type="text" name="kilo" class="form-control" onkeyup="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')" placeholder="0.0" value="<?= $kilo ?>">
+
 								<label class="control-label">Feed Stock</label>
-								<input type="number" name="stock" class="form-control" value="<?= $stock ?? 1 ?>">
+								<input type="number" name="stock" class="form-control" min="0" onkeyup="validateMin()" value="<?= $stock ?? 1 ?>">
 
 							</div>
 
@@ -270,7 +279,7 @@ if (isset($_GET['delete'])) {
 
 </div>
 <script>
-	function showDelete() {
+	function showDelete(x) {
 		Swal.fire({
 			title: "Do you want to delete this to feed?",
 			showDenyButton: true,
@@ -279,9 +288,16 @@ if (isset($_GET['delete'])) {
 		}).then((result) => {
 			/* Read more about isConfirmed, isDenied below */
 			if (result.isConfirmed) {
-				window.location.href = "?delete&id=<?php echo $n->id ?>"
+				window.location.href = "?delete&id=" + x
 			}
 		});
+	}
+
+	function validateMin(){
+		let input = document.querySelector("input[name='stock']");
+		if (input.value <= -1) {
+			input.value = 0;
+		}
 	}
 </script>
 

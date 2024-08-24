@@ -101,12 +101,14 @@ $res = $get->fetch(PDO::FETCH_OBJ);
                 <td>PIG NO.</td>
                 <th>MONTH</th>
                 <td>WEIGHT</td>
+                <td>Price Per Kilo</td>
                 <td>PRICE</td>
             </tr>
             <tr>
                 <td><?= $res->pigno ?></td>
                 <td><?= $res->month ?? 0 ?></td>
                 <td><?= $res->weight ?></td>
+                <td>200</td>
                 <td><?= number_format($res->price, 2) ?></td>
             </tr>
         </table>

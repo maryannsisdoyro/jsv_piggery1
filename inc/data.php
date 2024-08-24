@@ -1,8 +1,11 @@
 <?php
  $pCount = $uCount = $bCount = $qCount = $sCount = $fCount = $cCount =  $vCount = '';
 
- $query = $db->query("SELECT * FROM pigs");
+ $query = $db->query("SELECT * FROM pigs WHERE type IS NULL AND status = 1");
  $pCount = $query->rowCount();
+
+ $sow_q = $db->query("SELECT * FROM pigs WHERE type IS NOT NULL");
+ $sowCount = $sow_q->rowCount();
 
  $quer1 = $db->query("SELECT * FROM breed");
  $bCount = $quer1->rowCount();
@@ -33,10 +36,10 @@
       <div class="w3-container w3-red w3-padding-16">
         <div class="w3-left"><i class="fa fa-list w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3><?php echo $pCount;  ?></h3>
+          <h3><?php echo $pCount;  ?> / <?= $sowCount ?></h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Pigs</h4>
+        <h4>Pigs / Sow</h4>
       </div>
     </div>
     <div class="w3-quarter">

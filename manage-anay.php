@@ -17,8 +17,8 @@
 
   <div class="w3-container" style="padding-top:22px">
     <div class="w3-row">
-      <h2>Manage Pigs</h2>
-      <a href="add-pig.php" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Add New Pig</a><br><br>
+      <h2>Manage Sow Pigs</h2>
+      <!-- <a href="add-pig.php" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Add New Pig</a><br><br> -->
       <div class="table-responsive">
         <table class="table table-hover table-striped" id="table">
           <thead>
@@ -31,13 +31,13 @@
               <th>Feed</th>
               <th>Vitamins</th>
               <th>Weight</th>
-              <th>Price</th>
+              <!-- <th>Price</th> -->
               <th>Month</th>
-              <th>Gender</th>
+              <!-- <th>Gender</th> -->
               <th>Health Status</th>
               <th>Arrived</th>
               <!-- <th>Remark</th> -->
-              <th>Desc.</th>
+              <!-- <th>Desc.</th> -->
               <th></th>
             </tr>
           </thead>
@@ -61,7 +61,7 @@
 				classification c ON p.classification_id = c.id 
 			LEFT JOIN 
 				feed f ON p.feed_id = f.id 
-			WHERE p.status = 4 ORDER BY p.id DESC ");
+			WHERE p.type = 'sow' AND p.status = 1 ORDER BY p.id DESC ");
             $fetch = $all_pig->fetchAll(PDO::FETCH_OBJ);
             foreach ($fetch as $data) {
              
@@ -77,13 +77,13 @@
                   <td><?php echo $data->feed_name ?></td>
                   <td><?php echo $data->vita_name ?></td>
                   <td><?php echo $data->weight ?></td>
-                  <td>₱ <?php echo number_format((int)$data->weight * 200) ?></td>
+                  <!-- <td>₱ <?php echo number_format((int)$data->weight * 200) ?></td> -->
                   <td><?= $data->month ?></td>
-                  <td><?php echo $data->gender ?></td>
+                  <!-- <td><?php echo $data->gender ?></td> -->
                   <td><?php echo $data->health_status ?></td>
                   <td><?php echo $data->arrived ?></td>
                   <!-- <td><?php echo wordwrap($data->remark, 300, '<br>'); ?></td> -->
-                  <td><?php echo $data->description ?></td>
+                  <!-- <td><?php echo $data->description ?></td> -->
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog"></i> Option
@@ -91,6 +91,7 @@
                       <ul class="dropdown-menu dropdown-menu-right">
                         <li><a href="edit-anay.php?id=<?php echo $data->id ?>"><i class="fa fa-edit"></i> Edit</a></li>
                         <li><a onclick="return showDelete(<?= $data->id ?>)"><i class="fa fa-trash"></i> Delete</a></li>
+                        <li><a onclick="return showQuarantine(<?= $data->id ?>)" style="cursor: pointer;"><i class="fa fa-paper-plane"></i> Quarantine Pig</a></li>
                       </ul>
                     </div>
                   </td>
@@ -120,6 +121,20 @@
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         window.location.href = "delete-anay.php?id=" + x
+      }
+    });
+  }
+
+  function showQuarantine(x) {
+    Swal.fire({
+      title: "Do you want to add this to quarantine?",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: `No`
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        window.location.href = "quarantine.php?id=" + x
       }
     });
   }

@@ -147,7 +147,7 @@ if (isset($_GET['delete'])) {
 												<a href="?edit&id=<?php echo $n->id ?>"><i class="fa fa-edit"></i> Edit</a>
 											</li>
 											<li>
-												<a onclick="return showDelete()" style="cursor: pointer;"><i class="fa fa-trash"></i> Delete</a>
+												<a onclick="return showDelete(<?= $n->id ?>)" style="cursor: pointer;"><i class="fa fa-trash"></i> Delete</a>
 											</li>
 										</ul>
 									</td>
@@ -230,7 +230,7 @@ if (isset($_GET['delete'])) {
 </div>
 
 <script>
-	function showDelete() {
+	function showDelete(x) {
 		Swal.fire({
 			title: "Do you want to delete this to pig?",
 			showDenyButton: true,
@@ -239,7 +239,7 @@ if (isset($_GET['delete'])) {
 		}).then((result) => {
 			/* Read more about isConfirmed, isDenied below */
 			if (result.isConfirmed) {
-				window.location.href = "?delete&id=<?php echo $n->id ?>"
+				window.location.href = "?delete&id=" + x
 			}
 		});
 	}

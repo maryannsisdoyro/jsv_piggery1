@@ -4,9 +4,14 @@
 <?php include 'session.php'; ?>
 
 <?php
-if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
+if (empty($_POST['selector'])) {
 	header('location: manage-pig.php');
 } else {
+
+    // $_SESSION['pigs'] = $_POST['selector'];
+
+    $get_all_pigs = $db->query("SELECT * FROM pigs WHERE status = 1 AND type IS NULL");
+    $fetch_all = $get_all_pigs->fetchAll(PDO::FETCH_OBJ);
 
 	$pigno = $bname = $b_id = $cname = $c_id = $fname = $f_id = $vname = $v_id = $health = "";
 	$id = (int)$_GET['id'];
@@ -95,6 +100,16 @@ if (!$_GET['id'] or empty($_GET['id']) or $_GET['id'] == '') {
 			<div class="col-md-6">
 
 				<?php
+                // var_dump($_SESSION['pigs']);
+
+                // foreach ($fetch_all as $key => $value) {
+                //     foreach ($_SESSION['pigs'] as $id) {
+                //         if ($id == $value->id) {
+                //             echo $value->id;
+                //         }
+                //     }
+                // }
+                
 				if (isset($_POST['submit'])) {
 					$id = $_POST['id'];
 					$buyer = $_POST['buyer'];
