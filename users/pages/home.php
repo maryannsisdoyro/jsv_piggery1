@@ -41,9 +41,7 @@
         </div>
   </div>
 
-</div>
-
-<?php 
+</div><?php 
     if (isset($_GET['logout'])) {
       ?>
         <script>
