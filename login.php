@@ -13,9 +13,7 @@ if (isset($_SESSION['USER_ID']) && isset($_SESSION['USER_NAME']) && isset($_SESS
     window.location.href = "dashboard.php"
   </script>
   <?php 
-}
-// echo password_hash("chadrhino@@@2024", PASSWORD_DEFAULT);
-?>
+}?>
 
 <div class="container">
 	<div class="row" style="margin-top: 10%">
