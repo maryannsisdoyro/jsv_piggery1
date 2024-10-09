@@ -1,6 +1,9 @@
 <?php 
 require 'users/header.php';
 $path = "users/pages/";
+
+echo "HELLO WORLD";
+
 if (isset($_GET['page'])) {
   $page = $_GET['page'];
 
