@@ -13,3 +13,4 @@ if (isset($_GET['page'])) {
 }else{
   require $path . "home.php";
 }
+
