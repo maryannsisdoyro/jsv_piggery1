@@ -35,7 +35,7 @@
 
   <div class="container">
         <div class="text-center">
-            <h1 class="text-light">JSV Piggery</h1>
+            <h1 class="text-light">JSV Piggery v1</h1>
             <p class="text-light">Piggery where you can find best quality pigs.</p>
             <a href="<?= isset($_SESSION['USER_ID']) ? 'index.php?page=home' : 'login.php' ?>" class="btn btn-light">Buy Now</a>
         </div>
