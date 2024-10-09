@@ -1,4 +1,7 @@
-<?php include 'setting/system.php'; ?>
+<?php include 'setting/system.php';
+
+require 'users/header.php';?>
+
 <?php include 'theme/head.php';
 
 if (isset($_SESSION['USER_ID']) && isset($_SESSION['USER_NAME']) && isset($_SESSION['USER_EMAIL'])) {
